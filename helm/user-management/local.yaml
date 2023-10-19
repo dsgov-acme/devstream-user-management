@@ -1,0 +1,27 @@
+environment: "local"
+
+postgres:
+  enabled: false
+  persistence:
+    size: 1Gi
+  env:
+    POSTGRES_DB: "local-user-management-db"
+    POSTGRES_HOST: 'postgres-14-alpine'
+    POSTGRES_PASSWORD: "root"
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: "root"
+
+net:
+  host: "api.devstream.test"
+
+env:
+  ALLOWED_ORIGINS: "http://localhost:4200, http://localhost:4201, http://public.devstream.test, http://agency.devstream.test"
+  DB_CONNECTION_URL: "jdbc:postgresql://user-management-postgres:5432/local-user-management-db"
+  DB_USERNAME: "root"
+  DB_PASSWORD: "root"
+  GCP_PROJECT_ID: "devstream-dev"
+  CERBOS_URI: "127.0.0.1:3592"
+  SELF_SIGN_PUBLIC_KEY: "${sm://projects/devstream-dev/secrets/devstream-self-signed-token-public-key/versions/latest}"
+  TOKEN_PRIVATE_KEY_SECRET: "devstream-self-signed-token-private-key"
+  TOKEN_ISSUER: "devstream"
+  TOKEN_PRIVATE_KEY_VERSION: "latest"
