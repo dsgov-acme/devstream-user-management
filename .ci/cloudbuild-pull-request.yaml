@@ -9,13 +9,12 @@ steps:
     args:
       - "-c"
       - |
-        #./gradlew \
-        #  -Dsonar.login="$$SONARQUBE_TOKEN" \
-        #  -Dsonar.projectKey=${REPO_NAME} \
-        #  -Dsonar.projectName=${REPO_NAME} \
-        #  -Dsonar.branch.name=${BRANCH_NAME} \
-        #  -Dsonar.host.url=${_SONARQUBE_HOST} \
-        #  -Dsonar.qualitygate.wait=true \
+        # ./gradlew \
+        #   -Dsonar.login="$$SONARQUBE_TOKEN" \
+        #   -Dsonar.projectKey=${REPO_NAME} \
+        #   -Dsonar.projectName=${REPO_NAME} \
+        #   -Dsonar.host.url=${_SONARQUBE_HOST} \
+        # clean build jacocoTestReport sonarqube
         ./gradlew clean build
     secretEnv: ['SONARQUBE_TOKEN']
 
@@ -60,7 +59,7 @@ steps:
         gh pr comment ${_PR_NUMBER} --body "
         :sparkles: Build reports have been generated and can be accessed here:
         :one: **Jacoco Report URL in GCS:** https://console.cloud.google.com/storage/browser/${_ARTIFACT_BUCKET_NAME}/${REPO_NAME}/${_PR_NUMBER}/jacoco/test/html/index.html
-        :two: **SonarQube:** ${_SONARQUBE_HOST}/dashboard?branch=${BRANCH_NAME}&id=${REPO_NAME}
+        :two: **SonarQube:** ${_SONARQUBE_HOST}/dashboard?id=${REPO_NAME}-${_PR_NUMBER}
         "
     secretEnv: ['GH_TOKEN']
 
